@@ -99,6 +99,10 @@ DomainModel CargoTrackingSystem {
 		TrackingId : String
 
 		[Refer]
+	Users : User* ! Association
+		Delivery : Delivery Association
+		Events : HandlingEvent* ! Association
+		Itinerary : Itinerary Association
 	}
 
 	Entity Location {
@@ -130,6 +134,8 @@ DomainModel CargoTrackingSystem {
 		Name : String
 		UserID : String
 	Role : String
+	[Refer]
+		Cargos : Cargo* Association
 	}
 
 	Entity RouteSpecification {
@@ -140,6 +146,9 @@ DomainModel CargoTrackingSystem {
 
 	Entity Itinerary {
 		IeneraryNumber : String
+	[Refer]
+		Step : Leg* Association
+		Specification : RouteSpecification Association
 	}
 
 	Entity Voyage {
