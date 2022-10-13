@@ -3,9 +3,9 @@ UseCaseModel CargoTrackingSystem {
 	UC::createLocation "Create Location" definedBySSD(CreateLocationSSD) relatedService(CreateLocationService)
 	UC::viewTracking "View Tracking" definedBySSD(ViewTrackingSSD) relatedService(ViewTrackingService)
 	UC::viewCargos "View Cargos" definedBySSD(ViewCargosSSD) relatedService(ViewCargosService)
-	UC::bookCargo "Book Cargo"
-	UC::changeCargoDestination "Change Cargo Destination"
-	UC::routeCargo "Route Cargo"
+	UC::bookCargo "Book Cargo" definedBySSD(BookCargoSSD) relatedService(BookCargoService)
+	UC::changeCargoDestination "Change Cargo Destination" definedBySSD(ChangeCargoDestinationSSD) relatedService(ChangeCargoDestinationService)
+	UC::routeCargo "Route Cargo" definedBySSD(RouteCargoSSD) relatedService(RouteCargoService)
 	UC::createVoyage "Create Voyage" definedBySSD(CreateVoyageSSD) relatedService(CreateVoyageService)
 	UC::addCarrierMovement "Add Carrier Movement"
 	UC::handleCargoEvent "Handle Cargo Event"
@@ -95,7 +95,7 @@ UseCaseModel CargoTrackingSystem {
 
 		CallMessage::ViewCargosSSDCallMessage1(getAllCargoRoute ViewCargosSSDCallMessage1SendingEnd -> ViewCargosSSDExecution1StartEnd)
 		ReturnMessage::ViewCargosSSDCallMessage1Return(ViewCargosSSDExecution1FinishEnd -> ViewCargosSSDCallMessage1ReturnReceivingEnd ViewCargosSSDCallMessage1)
-		CallMessage::ViewCargosSSDCallMessage3(getCeratinCargoRoute ViewCargosSSDCallMessage3SendingEnd -> ViewCargosSSDExecution2StartEnd)
+		CallMessage::ViewCargosSSDCallMessage3(getCertainCargoRoute ViewCargosSSDCallMessage3SendingEnd -> ViewCargosSSDExecution2StartEnd)
 		ReturnMessage::ViewCargosSSDCallMessage3Return(ViewCargosSSDExecution2FinishEnd -> ViewCargosSSDCallMessage3ReturnReceivingEnd ViewCargosSSDCallMessage3)
 
 		Execution::ViewCargosSSDExecution1(ViewCargosService ViewCargosSSDExecution1StartEnd ViewCargosSSDExecution1FinishEnd)
@@ -109,6 +109,65 @@ UseCaseModel CargoTrackingSystem {
 		ExecutionEnd::ViewCargosSSDExecution2StartEnd(ViewCargosService ViewCargosSSDExecution2)
 		ExecutionEnd::ViewCargosSSDExecution2FinishEnd(ViewCargosService ViewCargosSSDExecution2)
 		MessageEnd::ViewCargosSSDCallMessage3ReturnReceivingEnd(CargoPlanner ViewCargosSSDCallMessage3Return)
+
+	}
+
+	Interaction BookCargoSSD {
+
+		[Participants: CargoPlanner BookCargoService]
+
+		CallMessage::BookCargoSSDCallMessage1(getAllLocations BookCargoSSDCallMessage1SendingEnd -> BookCargoSSDExecution1StartEnd)
+		ReturnMessage::BookCargoSSDCallMessage1Return(BookCargoSSDExecution1FinishEnd -> BookCargoSSDCallMessage1ReturnReceivingEnd BookCargoSSDCallMessage1)
+		CallMessage::BookCargoSSDCallMessage3(createNewCargo BookCargoSSDCallMessage3SendingEnd -> BookCargoSSDExecution2StartEnd)
+		ReturnMessage::BookCargoSSDCallMessage3Return(BookCargoSSDExecution2FinishEnd -> BookCargoSSDCallMessage3ReturnReceivingEnd BookCargoSSDCallMessage3)
+		CallMessage::BookCargoSSDCallMessage5(createRouteSpecification BookCargoSSDCallMessage5SendingEnd -> BookCargoSSDExecution3StartEnd)
+		ReturnMessage::BookCargoSSDCallMessage5Return(BookCargoSSDExecution3FinishEnd -> BookCargoSSDCallMessage5ReturnReceivingEnd BookCargoSSDCallMessage5)
+
+		Execution::BookCargoSSDExecution1(BookCargoService BookCargoSSDExecution1StartEnd BookCargoSSDExecution1FinishEnd)
+		Execution::BookCargoSSDExecution2(BookCargoService BookCargoSSDExecution2StartEnd BookCargoSSDExecution2FinishEnd)
+		Execution::BookCargoSSDExecution3(BookCargoService BookCargoSSDExecution3StartEnd BookCargoSSDExecution3FinishEnd)
+
+		MessageEnd::BookCargoSSDCallMessage1SendingEnd(CargoPlanner BookCargoSSDCallMessage1)
+		ExecutionEnd::BookCargoSSDExecution1StartEnd(BookCargoService BookCargoSSDExecution1)
+		ExecutionEnd::BookCargoSSDExecution1FinishEnd(BookCargoService BookCargoSSDExecution1)
+		MessageEnd::BookCargoSSDCallMessage1ReturnReceivingEnd(CargoPlanner BookCargoSSDCallMessage1Return)
+		MessageEnd::BookCargoSSDCallMessage3SendingEnd(CargoPlanner BookCargoSSDCallMessage3)
+		ExecutionEnd::BookCargoSSDExecution2StartEnd(BookCargoService BookCargoSSDExecution2)
+		ExecutionEnd::BookCargoSSDExecution2FinishEnd(BookCargoService BookCargoSSDExecution2)
+		MessageEnd::BookCargoSSDCallMessage3ReturnReceivingEnd(CargoPlanner BookCargoSSDCallMessage3Return)
+		MessageEnd::BookCargoSSDCallMessage5SendingEnd(CargoPlanner BookCargoSSDCallMessage5)
+		ExecutionEnd::BookCargoSSDExecution3StartEnd(BookCargoService BookCargoSSDExecution3)
+		ExecutionEnd::BookCargoSSDExecution3FinishEnd(BookCargoService BookCargoSSDExecution3)
+		MessageEnd::BookCargoSSDCallMessage5ReturnReceivingEnd(CargoPlanner BookCargoSSDCallMessage5Return)
+
+	}
+
+	Interaction ChangeCargoDestinationSSD {
+
+		[Participants: CargoPlanner ChangeCargoDestinationService]
+
+		CallMessage::ChangeCargoDestinationSSDCallMessage1(selectLocation ChangeCargoDestinationSSDCallMessage1SendingEnd -> ChangeCargoDestinationSSDExecution1StartEnd)
+		ReturnMessage::ChangeCargoDestinationSSDCallMessage1Return(ChangeCargoDestinationSSDExecution1FinishEnd -> ChangeCargoDestinationSSDCallMessage1ReturnReceivingEnd ChangeCargoDestinationSSDCallMessage1)
+		CallMessage::ChangeCargoDestinationSSDCallMessage3(changeDestination ChangeCargoDestinationSSDCallMessage3SendingEnd -> ChangeCargoDestinationSSDExecution2StartEnd)
+		ReturnMessage::ChangeCargoDestinationSSDCallMessage3Return(ChangeCargoDestinationSSDExecution2FinishEnd -> ChangeCargoDestinationSSDCallMessage3ReturnReceivingEnd ChangeCargoDestinationSSDCallMessage3)
+
+		Execution::ChangeCargoDestinationSSDExecution1(ChangeCargoDestinationService ChangeCargoDestinationSSDExecution1StartEnd ChangeCargoDestinationSSDExecution1FinishEnd)
+		Execution::ChangeCargoDestinationSSDExecution2(ChangeCargoDestinationService ChangeCargoDestinationSSDExecution2StartEnd ChangeCargoDestinationSSDExecution2FinishEnd)
+
+		MessageEnd::ChangeCargoDestinationSSDCallMessage1SendingEnd(CargoPlanner ChangeCargoDestinationSSDCallMessage1)
+		ExecutionEnd::ChangeCargoDestinationSSDExecution1StartEnd(ChangeCargoDestinationService ChangeCargoDestinationSSDExecution1)
+		ExecutionEnd::ChangeCargoDestinationSSDExecution1FinishEnd(ChangeCargoDestinationService ChangeCargoDestinationSSDExecution1)
+		MessageEnd::ChangeCargoDestinationSSDCallMessage1ReturnReceivingEnd(CargoPlanner ChangeCargoDestinationSSDCallMessage1Return)
+		MessageEnd::ChangeCargoDestinationSSDCallMessage3SendingEnd(CargoPlanner ChangeCargoDestinationSSDCallMessage3)
+		ExecutionEnd::ChangeCargoDestinationSSDExecution2StartEnd(ChangeCargoDestinationService ChangeCargoDestinationSSDExecution2)
+		ExecutionEnd::ChangeCargoDestinationSSDExecution2FinishEnd(ChangeCargoDestinationService ChangeCargoDestinationSSDExecution2)
+		MessageEnd::ChangeCargoDestinationSSDCallMessage3ReturnReceivingEnd(CargoPlanner ChangeCargoDestinationSSDCallMessage3Return)
+
+	}
+
+	Interaction RouteCargoSSD {
+
+		[Participants: CargoPlanner RouteCargoService]
 
 	}
 
@@ -149,7 +208,34 @@ UseCaseModel CargoTrackingSystem {
 
 		[Operation]
 		getAllCargoRoute()
-		getCeratinCargoRoute(TrackingId)
+		getCertainCargoRoute(trackingId)
+
+	}
+
+	Service BookCargoService {
+
+		[Operation]
+		getAllLocations()
+		createNewCargo(trackingId)
+		createRouteSpecification(originCode, destinationCode, arrivalDeadline)
+
+		[TempProperty]
+		CurrentCargo : Cargo
+
+	}
+
+	Service ChangeCargoDestinationService {
+
+		[Operation]
+		selectLocation(locationCode)
+		changeDestination(trackingId)
+
+		[TempProperty]
+		CurrentLocation : Location
+
+	}
+
+	Service RouteCargoService {
 
 	}
 
@@ -161,7 +247,7 @@ UseCaseModel CargoTrackingSystem {
 			voyages:Set(Voyage) = events->collect(h:HandlingEvent | h.Voyage)
 
 		precondition:
-			cargo.oclIsUndefined() = false
+			c.oclIsUndefined() = false
 
 		postcondition:
 			let res:GetCargoInfoResult in
@@ -183,6 +269,105 @@ UseCaseModel CargoTrackingSystem {
 		postcondition:
 			result = routeSpecifications
 
+	}
+
+	Contract ViewCargosService::getCertainCargoRoute(trackingId : String) : GetCertainCargoRouteResult {
+
+		definition:
+			c:Cargo = Cargo.allInstance()->any(c:Cargo | c.TrackingId = trackingId)
+
+		precondition:
+			c.oclIsUndefined() = false
+
+		postcondition:
+			let res:GetCertainCargoRouteResult in
+			res.oclIsNew() and
+			res.Cargo = c and
+			res.Itinerary = c.Itinerary and
+			res.RouteSpecification = c.RouteSpecification and
+			res.Delivery = c.Delivery and
+			result = res
+	}
+
+	Contract BookCargoService::getAllLocations() : Set(Location) {
+
+		definition:
+			locations:Set(Location) = Location.allInstance()
+
+		precondition:
+			locations.oclIsUndefined() = false
+
+		postcondition:
+			result = locations
+	}
+
+	Contract BookCargoService::createNewCargo(trackingId : String) : Boolean {
+
+		definition:
+			c:Cargo = Cargo.allInstance()->any(c:Cargo | c.TrackingId = trackingId)
+
+		precondition:
+			c.oclIsUndefined() = true
+
+		postcondition:
+			let c:Cargo in
+			c.oclIsNew() and
+			CurrentCargo = c and
+			result = true
+
+	}
+
+	Contract BookCargoService::createRouteSpecification(originCode : String, destinationCode : String, arrivalDeadline : Date) : Boolean {
+
+		definition:
+			origin:Location = Location.allInstance()->any(l:Location | l.UnLocode = originCode),
+			destination:Location = Location.allInstance()->any(l:Location | l.UnLocode = destinationCode)
+
+		precondition:
+			CurrentCargo.oclIsUndefined() = false and
+			origin.oclIsUndefined() = false and
+			destination.oclIsUndefined() = false
+
+		postcondition:
+			let rs:RouteSpecification in
+			rs.oclIsNew() and
+			rs.Origin = origin and
+			rs.Destination = destination and
+			rs.ArrivalDeadline = arrivalDeadline and
+			CurrentCargo.RouteSpecification = rs and
+			result = true
+	}
+
+	Contract ChangeCargoDestinationService::selectLocation(locationCode : String) : Boolean {
+
+		definition:
+			location:Location = Location.allInstance()->any(l:Location | l.Unlocode = locationCode)
+
+		precondition:
+			location.oclIsUndefined() = false
+
+		postcondition:
+			CurrentLocation = location and
+			result = true
+	}
+
+	Contract ChangeCargoDestinationService::changeDestination(trackingId : String) : Boolean {
+
+		definition:
+			c:Cargo = Cargo.allInstance()->any(c:Cargo | c.TrackingId = trackingId),
+			route:RouteSpecification = c.RouteSpecification,
+			delivery:Delivery = c.Delivery
+
+		precondition:
+			c.oclIsUndefined() = false and
+			route.oclIsUndefined() = false and
+			delivery.oclIsUndefined() = false and
+			CurrentLocation.oclIsUndefined() = false
+
+		postcondition:
+			route.Destination = CurrentLocation and
+			delivery.TransportStatus = MISROUTED and
+			result = true
 	}
 
 }
@@ -235,9 +420,11 @@ DomainModel CargoTrackingSystem {
 	}
 
 	Entity RouteSpecification {
-		Origin : String
-		Destination : String
 		ArrivalDeadline : Date
+
+		[Refer]
+		Origin : Location Association
+		Destination : Location Association
 	}
 
 	Entity Itinerary {
@@ -265,7 +452,7 @@ DomainModel CargoTrackingSystem {
 	}
 
 	Entity Delivery {
-		TransportStatus : TransportStatus[MISDIRECTED|NOTMISDIRECTED]
+		TransportStatus : TransportStatus[MISROUTED|NOTMISROUTED]
 		Unloaded : Boolean
 		EstimatedArrivalDate : Date
 		RoutingStatus : String
@@ -276,6 +463,14 @@ DomainModel CargoTrackingSystem {
 		Delivery : Delivery Association
 		Events : HandlingEvent* Association
 		Voyages : Voyage* Association
+	}
+
+	Entity GetCertainCargoRouteResult {
+		[Refer]
+		Cargo : Cargo Association
+		Delivery : Delivery Association
+		RouteSpecification : RouteSpecification Association
+		Itinerary : Itinerary Association
 	}
 
 }
