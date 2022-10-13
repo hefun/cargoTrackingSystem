@@ -96,84 +96,70 @@ UseCaseModel CargoTrackingSystem {
 DomainModel CargoTrackingSystem {
 
 	Entity Cargo {
-		TrackingID : String
+		TrackingId : String
 
 		[Refer]
-		Customer : Customer Association
-		Goal : DeliverySpecification Association
-		DeliveryHistory : DeliveryHistory Association
-	}
-
-	Entity DeliverySpecification {
-		Arrivetime : Date
-
-		[Refer]
-		Destination : Location Association
-	}
-
-	Entity Customer extends User {
-		Role : Role[SHIPPER|RECEIVER|PAYER]
-
-		[Refer]
-		Cargo : Cargo* ! Aggregation
 	}
 
 	Entity Location {
-		PortCode : String
-	}
-
-	Entity DeliveryHistory {
-		Content : String
-
-		[Refer]
-		DeliveryHistorytoCargo : Cargo ! Association
-		HistorytoEvent : HandlingEvent* Association
+		UnLocode : String
+	Name : String
 	}
 
 	Entity HandlingEvent {
-		Completiontime : Date
-		Type : EventType[LOAD|UNLOAD|PICKUP]
+		OperationType : OperationType[LOAD|UNLOAD|PICKUP]
+		CompletionTime : Date
+		RegistrationTime : Date
 
 		[Refer]
 		Handled : Cargo* Association
 		EventtoMovement : CarrierMovement Association
+	Location : Location Association
 	}
 
 	Entity CarrierMovement {
-		ScheduleID : String
+		DepartureTime : Date
+		ArrivalTime : Date
 
 		[Refer]
-		From : Location Association
-		To : Location Association
+		DepartureLocation : Location Association
+		ArrivalLocation : Location Association
 	}
 
 	Entity User {
 		Name : String
 		UserID : String
+	Role : String
 	}
 
-	Entity Admin extends User {
-	}
-
-	Entity CargoPlanner extends User {
-	}
-
-	Entity VoyageManager extends User {
-	}
-
-	Entity CargoTracker extends User {
-	}
-
-Entity RouteSpecification {
+	Entity RouteSpecification {
+		Origin : String
+		Destination : String
+		ArrivalDeadline : Date
 	}
 
 	Entity Itinerary {
+		IeneraryNumber : String
 	}
 
 	Entity Voyage {
+		VoyageNumber : String
 	}
 
 	Entity Leg {
+		LoadTime : Date
+		UnloadTime : Date
+
+		[Refer]
+		LoadLocation : Location Association
+		UnloadLocation : Location Association
+	}
+
+	Entity Delivery {
+		TransportStatus : TransportStatus[MISDIRECTED|NOTMISDIRECTED]
+		Unloaded : Boolean
+		EstimatedArrivalDate : Date
+		RoutingStatus : String
 	}
 
 }
