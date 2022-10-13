@@ -54,22 +54,15 @@ UseCaseModel CargoTrackingSystem {
 
 		[Participants: Admin CreateLocationService]
 
-		CallMessage::CreateLocationSSDCallMessage1(inputLocationCode CreateLocationSSDCallMessage1SendingEnd -> CreateLocationSSDExecution1StartEnd)
+		CallMessage::CreateLocationSSDCallMessage1(inputLocationIInfo CreateLocationSSDCallMessage1SendingEnd -> CreateLocationSSDExecution1StartEnd)
 		ReturnMessage::CreateLocationSSDCallMessage1Return(CreateLocationSSDExecution1FinishEnd -> CreateLocationSSDCallMessage1ReturnReceivingEnd CreateLocationSSDCallMessage1)
-		CallMessage::CreateLocationSSDCallMessage3(inputLocationName CreateLocationSSDCallMessage3SendingEnd -> CreateLocationSSDExecution2StartEnd)
-		ReturnMessage::CreateLocationSSDCallMessage3Return(CreateLocationSSDExecution2FinishEnd -> CreateLocationSSDCallMessage3ReturnReceivingEnd CreateLocationSSDCallMessage3)
 
 		Execution::CreateLocationSSDExecution1(CreateLocationService CreateLocationSSDExecution1StartEnd CreateLocationSSDExecution1FinishEnd)
-		Execution::CreateLocationSSDExecution2(CreateLocationService CreateLocationSSDExecution2StartEnd CreateLocationSSDExecution2FinishEnd)
 
 		MessageEnd::CreateLocationSSDCallMessage1SendingEnd(Admin CreateLocationSSDCallMessage1)
 		ExecutionEnd::CreateLocationSSDExecution1StartEnd(CreateLocationService CreateLocationSSDExecution1)
 		ExecutionEnd::CreateLocationSSDExecution1FinishEnd(CreateLocationService CreateLocationSSDExecution1)
 		MessageEnd::CreateLocationSSDCallMessage1ReturnReceivingEnd(Admin CreateLocationSSDCallMessage1Return)
-		MessageEnd::CreateLocationSSDCallMessage3SendingEnd(Admin CreateLocationSSDCallMessage3)
-		ExecutionEnd::CreateLocationSSDExecution2StartEnd(CreateLocationService CreateLocationSSDExecution2)
-		ExecutionEnd::CreateLocationSSDExecution2FinishEnd(CreateLocationService CreateLocationSSDExecution2)
-		MessageEnd::CreateLocationSSDCallMessage3ReturnReceivingEnd(Admin CreateLocationSSDCallMessage3Return)
 
 	}
 
@@ -169,6 +162,16 @@ UseCaseModel CargoTrackingSystem {
 
 		[Participants: CargoPlanner RouteCargoService]
 
+		CallMessage::RouteCargoSSDCallMessage1(routeCargo RouteCargoSSDCallMessage1SendingEnd -> RouteCargoSSDExecution1StartEnd)
+		ReturnMessage::RouteCargoSSDCallMessage1Return(RouteCargoSSDExecution1FinishEnd -> RouteCargoSSDCallMessage1ReturnReceivingEnd RouteCargoSSDCallMessage1)
+
+		Execution::RouteCargoSSDExecution1(RouteCargoService RouteCargoSSDExecution1StartEnd RouteCargoSSDExecution1FinishEnd)
+
+		MessageEnd::RouteCargoSSDCallMessage1SendingEnd(CargoPlanner RouteCargoSSDCallMessage1)
+		ExecutionEnd::RouteCargoSSDExecution1StartEnd(RouteCargoService RouteCargoSSDExecution1)
+		ExecutionEnd::RouteCargoSSDExecution1FinishEnd(RouteCargoService RouteCargoSSDExecution1)
+		MessageEnd::RouteCargoSSDCallMessage1ReturnReceivingEnd(CargoPlanner RouteCargoSSDCallMessage1Return)
+
 	}
 
 	Service CargoTrackingSystemSystem {
@@ -192,7 +195,7 @@ UseCaseModel CargoTrackingSystem {
 	Service CreateLocationService {
 
 		[Operation]
-		inputLocationCode(locationCode)
+		inputLocationIInfo(locationCode, name)
 		inputLocationName(name)
 
 	}
@@ -236,6 +239,9 @@ UseCaseModel CargoTrackingSystem {
 	}
 
 	Service RouteCargoService {
+
+		[Operation]
+		routeCargo(trackingId, locationCode)
 
 	}
 
@@ -370,6 +376,44 @@ UseCaseModel CargoTrackingSystem {
 			result = true
 	}
 
+	Contract RouteCargoService::routeCargo(trackingId : String, locationCode : String) : Boolean {
+
+		definition:
+			c:Cargo = Cargo.allInstance()->any(c:Cargo | c.TrackingId = trackingId),
+			location:Location = Location.allInstance()->any(l:Location | l.UnLocode = locationCode),
+			itinerary:Itinerary = c.Itinerary,
+			legs:Set(Leg) = itinerary.Step,
+			cm = CarrierMovement.allInstance()->any(cm:CarrierMovement | cm.ArrivalLocation = location),
+			voyage = cm.Voyage
+
+		precondition:
+			c.oclIsUndefined() = false and
+			location.oclIsUndefined() = false and
+			cm.oclIsUndefined() = false and
+			voyage.oclIsUndefined() = false
+
+		postcondition:
+			let route:RouteSpecification in
+			route.oclIsNew() and
+			route.Destination = location and
+			itinerary.Specification = route
+	}
+
+	Contract CreateLocationService::inputLocationInfo(locationCode : String, name : String) : Boolean {
+
+		definition:
+			location:Location = Location.allInstance()->any(l:Location | l.UnLocode = locationCode)
+
+		precondition:
+			location.oclIsUndefined() = true
+		postcondition:
+			let location:Location in
+			location.oclIsNew() and
+			location.UnLocode = locationCode and
+			location.Name = name and
+			result = true
+	}
+
 }
 
 DomainModel CargoTrackingSystem {
@@ -408,6 +452,7 @@ DomainModel CargoTrackingSystem {
 		[Refer]
 		DepartureLocation : Location Association
 		ArrivalLocation : Location Association
+		Voyage : Voyage ! Association
 	}
 
 	Entity User {
