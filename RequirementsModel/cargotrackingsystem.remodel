@@ -54,7 +54,7 @@ UseCaseModel CargoTrackingSystem {
 
 		[Participants: Admin CreateLocationService]
 
-		CallMessage::CreateLocationSSDCallMessage1(inputLocationIInfo CreateLocationSSDCallMessage1SendingEnd -> CreateLocationSSDExecution1StartEnd)
+		CallMessage::CreateLocationSSDCallMessage1(inputLocationInfo CreateLocationSSDCallMessage1SendingEnd -> CreateLocationSSDExecution1StartEnd)
 		ReturnMessage::CreateLocationSSDCallMessage1Return(CreateLocationSSDExecution1FinishEnd -> CreateLocationSSDCallMessage1ReturnReceivingEnd CreateLocationSSDCallMessage1)
 
 		Execution::CreateLocationSSDExecution1(CreateLocationService CreateLocationSSDExecution1StartEnd CreateLocationSSDExecution1FinishEnd)
@@ -194,6 +194,23 @@ UseCaseModel CargoTrackingSystem {
 
 		[Participants: CargoTracker HandleCargoEventService]
 
+		CallMessage::HandleCargoEventSSDCallMessage1(createLoadEvent HandleCargoEventSSDCallMessage1SendingEnd -> HandleCargoEventSSDExecution1StartEnd)
+		ReturnMessage::HandleCargoEventSSDCallMessage1Return(HandleCargoEventSSDExecution1FinishEnd -> HandleCargoEventSSDCallMessage1ReturnReceivingEnd HandleCargoEventSSDCallMessage1)
+		CallMessage::HandleCargoEventSSDCallMessage3(createUnloadEvent HandleCargoEventSSDCallMessage3SendingEnd -> HandleCargoEventSSDExecution2StartEnd)
+		ReturnMessage::HandleCargoEventSSDCallMessage3Return(HandleCargoEventSSDExecution2FinishEnd -> HandleCargoEventSSDCallMessage3ReturnReceivingEnd HandleCargoEventSSDCallMessage3)
+
+		Execution::HandleCargoEventSSDExecution1(HandleCargoEventService HandleCargoEventSSDExecution1StartEnd HandleCargoEventSSDExecution1FinishEnd)
+		Execution::HandleCargoEventSSDExecution2(HandleCargoEventService HandleCargoEventSSDExecution2StartEnd HandleCargoEventSSDExecution2FinishEnd)
+
+		MessageEnd::HandleCargoEventSSDCallMessage1SendingEnd(CargoTracker HandleCargoEventSSDCallMessage1)
+		ExecutionEnd::HandleCargoEventSSDExecution1StartEnd(HandleCargoEventService HandleCargoEventSSDExecution1)
+		ExecutionEnd::HandleCargoEventSSDExecution1FinishEnd(HandleCargoEventService HandleCargoEventSSDExecution1)
+		MessageEnd::HandleCargoEventSSDCallMessage1ReturnReceivingEnd(CargoTracker HandleCargoEventSSDCallMessage1Return)
+		MessageEnd::HandleCargoEventSSDCallMessage3SendingEnd(CargoTracker HandleCargoEventSSDCallMessage3)
+		ExecutionEnd::HandleCargoEventSSDExecution2StartEnd(HandleCargoEventService HandleCargoEventSSDExecution2)
+		ExecutionEnd::HandleCargoEventSSDExecution2FinishEnd(HandleCargoEventService HandleCargoEventSSDExecution2)
+		MessageEnd::HandleCargoEventSSDCallMessage3ReturnReceivingEnd(CargoTracker HandleCargoEventSSDCallMessage3Return)
+
 	}
 
 	Service CargoTrackingSystemSystem {
@@ -217,8 +234,7 @@ UseCaseModel CargoTrackingSystem {
 	Service CreateLocationService {
 
 		[Operation]
-		inputLocationIInfo(locationCode, name)
-		inputLocationName(name)
+		inputLocationInfo(locationCode, name)
 
 	}
 
@@ -275,6 +291,10 @@ UseCaseModel CargoTrackingSystem {
 	}
 
 	Service HandleCargoEventService {
+
+		[Operation]
+		createLoadEvent(completionTime, registrationTime, trackingId)
+		createUnloadEvent(completionTime, registrationTime, trackingId)
 
 	}
 
@@ -483,6 +503,42 @@ UseCaseModel CargoTrackingSystem {
 			result = true
 	}
 
+	Contract HandleCargoEventService::createLoadEvent(completionTime : Date, registrationTime : Date, trackingId : String) : Boolean {
+
+		definition:
+			c:Cargo = Cargo.allInstance()->any(c:Cargo | c.TrackingId = trackingId)
+
+		precondition:
+			c.oclIsUndefined() = false
+
+		postcondition:
+			let he:HandlingEvent in
+			he.oclIsNew() and
+			he.OperationType = OperationType::LOAD and
+			he.CompletionTime = completionTime and
+			he.RegistrationTime = registrationTime and
+			he.Handled = c and
+			result = true
+	}
+
+	Contract HandleCargoEventService::createUnloadEvent(completionTime : Date, registrationTime : Date, trackingId : String) : Boolean {
+
+		definition:
+			c:Cargo = Cargo.allInstance()->any(c:Cargo | c.TrackingId = trackingId)
+
+		precondition:
+			c.oclIsUndefined() = false
+
+		postcondition:
+			let he:HandlingEvent in
+			he.oclIsNew() and
+			he.OperationType = OperationType::UNLOAD and
+			he.CompletionTime = completionTime and
+			he.RegistrationTime = registrationTime and
+			he.Handled = c and
+			result = true
+	}
+
 }
 
 DomainModel CargoTrackingSystem {
@@ -504,7 +560,7 @@ DomainModel CargoTrackingSystem {
 	}
 
 	Entity HandlingEvent {
-		OperationType : OperationType[LOAD|UNLOAD|PICKUP]
+		OperationType : OperationType[LOAD|UNLOAD]
 		CompletionTime : Date
 		RegistrationTime : Date
 
