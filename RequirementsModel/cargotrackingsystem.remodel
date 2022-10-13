@@ -1,12 +1,12 @@
 UseCaseModel CargoTrackingSystem {
 
-	UC::createLocation "Create Location"
+	UC::createLocation "Create Location" definedBySSD(CreateLocationSSD) relatedService(CreateLocationService)
 	UC::viewTracking "View Tracking" definedBySSD(ViewTrackingSSD) relatedService(ViewTrackingService)
-	UC::viewCargos "View Cargos"
+	UC::viewCargos "View Cargos" definedBySSD(ViewCargosSSD) relatedService(ViewCargosService)
 	UC::bookCargo "Book Cargo"
 	UC::changeCargoDestination "Change Cargo Destination"
 	UC::routeCargo "Route Cargo"
-	UC::createVoyage "Create Voyage"
+	UC::createVoyage "Create Voyage" definedBySSD(CreateVoyageSSD) relatedService(CreateVoyageService)
 	UC::addCarrierMovement "Add Carrier Movement"
 	UC::handleCargoEvent "Handle Cargo Event"
 
@@ -50,6 +50,68 @@ UseCaseModel CargoTrackingSystem {
 
 	}
 
+	Interaction CreateLocationSSD {
+
+		[Participants: Admin CreateLocationService]
+
+		CallMessage::CreateLocationSSDCallMessage1(inputLocationCode CreateLocationSSDCallMessage1SendingEnd -> CreateLocationSSDExecution1StartEnd)
+		ReturnMessage::CreateLocationSSDCallMessage1Return(CreateLocationSSDExecution1FinishEnd -> CreateLocationSSDCallMessage1ReturnReceivingEnd CreateLocationSSDCallMessage1)
+		CallMessage::CreateLocationSSDCallMessage3(inputLocationName CreateLocationSSDCallMessage3SendingEnd -> CreateLocationSSDExecution2StartEnd)
+		ReturnMessage::CreateLocationSSDCallMessage3Return(CreateLocationSSDExecution2FinishEnd -> CreateLocationSSDCallMessage3ReturnReceivingEnd CreateLocationSSDCallMessage3)
+
+		Execution::CreateLocationSSDExecution1(CreateLocationService CreateLocationSSDExecution1StartEnd CreateLocationSSDExecution1FinishEnd)
+		Execution::CreateLocationSSDExecution2(CreateLocationService CreateLocationSSDExecution2StartEnd CreateLocationSSDExecution2FinishEnd)
+
+		MessageEnd::CreateLocationSSDCallMessage1SendingEnd(Admin CreateLocationSSDCallMessage1)
+		ExecutionEnd::CreateLocationSSDExecution1StartEnd(CreateLocationService CreateLocationSSDExecution1)
+		ExecutionEnd::CreateLocationSSDExecution1FinishEnd(CreateLocationService CreateLocationSSDExecution1)
+		MessageEnd::CreateLocationSSDCallMessage1ReturnReceivingEnd(Admin CreateLocationSSDCallMessage1Return)
+		MessageEnd::CreateLocationSSDCallMessage3SendingEnd(Admin CreateLocationSSDCallMessage3)
+		ExecutionEnd::CreateLocationSSDExecution2StartEnd(CreateLocationService CreateLocationSSDExecution2)
+		ExecutionEnd::CreateLocationSSDExecution2FinishEnd(CreateLocationService CreateLocationSSDExecution2)
+		MessageEnd::CreateLocationSSDCallMessage3ReturnReceivingEnd(Admin CreateLocationSSDCallMessage3Return)
+
+	}
+
+	Interaction CreateVoyageSSD {
+
+		[Participants: VoyageManager CreateVoyageService]
+
+		CallMessage::CreateVoyageSSDCallMessage1(setVoyageNumber CreateVoyageSSDCallMessage1SendingEnd -> CreateVoyageSSDExecution1StartEnd)
+		ReturnMessage::CreateVoyageSSDCallMessage1Return(CreateVoyageSSDExecution1FinishEnd -> CreateVoyageSSDCallMessage1ReturnReceivingEnd CreateVoyageSSDCallMessage1)
+
+		Execution::CreateVoyageSSDExecution1(CreateVoyageService CreateVoyageSSDExecution1StartEnd CreateVoyageSSDExecution1FinishEnd)
+
+		MessageEnd::CreateVoyageSSDCallMessage1SendingEnd(VoyageManager CreateVoyageSSDCallMessage1)
+		ExecutionEnd::CreateVoyageSSDExecution1StartEnd(CreateVoyageService CreateVoyageSSDExecution1)
+		ExecutionEnd::CreateVoyageSSDExecution1FinishEnd(CreateVoyageService CreateVoyageSSDExecution1)
+		MessageEnd::CreateVoyageSSDCallMessage1ReturnReceivingEnd(VoyageManager CreateVoyageSSDCallMessage1Return)
+
+	}
+
+	Interaction ViewCargosSSD {
+
+		[Participants: CargoPlanner ViewCargosService]
+
+		CallMessage::ViewCargosSSDCallMessage1(getAllCargoRoute ViewCargosSSDCallMessage1SendingEnd -> ViewCargosSSDExecution1StartEnd)
+		ReturnMessage::ViewCargosSSDCallMessage1Return(ViewCargosSSDExecution1FinishEnd -> ViewCargosSSDCallMessage1ReturnReceivingEnd ViewCargosSSDCallMessage1)
+		CallMessage::ViewCargosSSDCallMessage3(getCeratinCargoRoute ViewCargosSSDCallMessage3SendingEnd -> ViewCargosSSDExecution2StartEnd)
+		ReturnMessage::ViewCargosSSDCallMessage3Return(ViewCargosSSDExecution2FinishEnd -> ViewCargosSSDCallMessage3ReturnReceivingEnd ViewCargosSSDCallMessage3)
+
+		Execution::ViewCargosSSDExecution1(ViewCargosService ViewCargosSSDExecution1StartEnd ViewCargosSSDExecution1FinishEnd)
+		Execution::ViewCargosSSDExecution2(ViewCargosService ViewCargosSSDExecution2StartEnd ViewCargosSSDExecution2FinishEnd)
+
+		MessageEnd::ViewCargosSSDCallMessage1SendingEnd(CargoPlanner ViewCargosSSDCallMessage1)
+		ExecutionEnd::ViewCargosSSDExecution1StartEnd(ViewCargosService ViewCargosSSDExecution1)
+		ExecutionEnd::ViewCargosSSDExecution1FinishEnd(ViewCargosService ViewCargosSSDExecution1)
+		MessageEnd::ViewCargosSSDCallMessage1ReturnReceivingEnd(CargoPlanner ViewCargosSSDCallMessage1Return)
+		MessageEnd::ViewCargosSSDCallMessage3SendingEnd(CargoPlanner ViewCargosSSDCallMessage3)
+		ExecutionEnd::ViewCargosSSDExecution2StartEnd(ViewCargosService ViewCargosSSDExecution2)
+		ExecutionEnd::ViewCargosSSDExecution2FinishEnd(ViewCargosService ViewCargosSSDExecution2)
+		MessageEnd::ViewCargosSSDCallMessage3ReturnReceivingEnd(CargoPlanner ViewCargosSSDCallMessage3Return)
+
+	}
+
 	Service CargoTrackingSystemSystem {
 
 	}
@@ -61,34 +123,66 @@ UseCaseModel CargoTrackingSystem {
 	Service ViewTrackingService {
 
 		[Operation]
-		getCargoInfo(trackingID)
+		getCargoInfo(trackingId)
 
 		[TempProperty]
 		CurrentCargoInfo : String
 
 	}
 
-	Contract ViewTrackingService::getCargoInfo(trackingID : String) : String {
+	Service CreateLocationService {
+
+		[Operation]
+		inputLocationCode(locationCode)
+		inputLocationName(name)
+
+	}
+
+	Service CreateVoyageService {
+
+		[Operation]
+		setVoyageNumber(number)
+
+	}
+
+	Service ViewCargosService {
+
+		[Operation]
+		getAllCargoRoute()
+		getCeratinCargoRoute(TrackingId)
+
+	}
+
+	Contract ViewTrackingService::getCargoInfo(trackingId : String) : GetCargoInfoResult {
 
 		definition:
-			cargo:Cargo = Cargo.allInstance()->any(cargo:Cargo | cargo.TrackingID = trackingID)
+			c:Cargo = Cargo.allInstance()->any(c:Cargo | c.TrackingId = trackingId),
+			events:Set(HandlingEvent) = HandlingEvent.allInstance()->select(handlingEvent:HandlingEvent | handlingEvent.Handled = c),
+			voyages:Set(Voyage) = events->collect(h:HandlingEvent | h.Voyage)
 
 		precondition:
 			cargo.oclIsUndefined() = false
 
 		postcondition:
-			CurrentCargoInfo = cargo.Info and
-			if
-				(cargo.Goal.oclIsUndefined() = false)
-			then
-				CurrentCargoInfo = CurrentCargoInfo + cargo.Goal
-			endif and
-			if
-				(cargo.DeliveryHistory.oclIsUndefined() = false)
-			then
-				CurrentCargoInfo = CurrentCargoInfo + cargo.DeliveryHistory
-			endif and
-			result = CurrentCargoInfo
+			let res:GetCargoInfoResult in
+			res.oclIsNew() and
+			res.Events->includesAll(events) and
+			res.Voyages->includesAll(voyages) and
+			res.Delivery = c.Delivery and
+			result = res
+	}
+
+	Contract ViewCargosService::getAllCargoRoute() : Set(RouteSpecification) {
+
+		definition:
+			routeSpecifications:Set(RouteSpecification) = Cargo.allInstance()->collect(c:Cargo | c.RouteSpecification)
+
+		precondition:
+			routeSpecifications.oclIsUndefined() = false
+
+		postcondition:
+			result = routeSpecifications
+
 	}
 
 }
@@ -99,15 +193,16 @@ DomainModel CargoTrackingSystem {
 		TrackingId : String
 
 		[Refer]
-	Users : User* ! Association
+		Users : User* ! Association
 		Delivery : Delivery Association
 		Events : HandlingEvent* ! Association
 		Itinerary : Itinerary Association
+		RouteSpecification : RouteSpecification Association
 	}
 
 	Entity Location {
 		UnLocode : String
-	Name : String
+		Name : String
 	}
 
 	Entity HandlingEvent {
@@ -116,9 +211,9 @@ DomainModel CargoTrackingSystem {
 		RegistrationTime : Date
 
 		[Refer]
-		Handled : Cargo* Association
-		EventtoMovement : CarrierMovement Association
-	Location : Location Association
+		Handled : Cargo Association
+		Location : Location Association
+		Voyage : Voyage Association
 	}
 
 	Entity CarrierMovement {
@@ -133,8 +228,9 @@ DomainModel CargoTrackingSystem {
 	Entity User {
 		Name : String
 		UserID : String
-	Role : String
-	[Refer]
+		Role : String
+
+		[Refer]
 		Cargos : Cargo* Association
 	}
 
@@ -146,13 +242,17 @@ DomainModel CargoTrackingSystem {
 
 	Entity Itinerary {
 		IeneraryNumber : String
-	[Refer]
+
+		[Refer]
 		Step : Leg* Association
 		Specification : RouteSpecification Association
 	}
 
 	Entity Voyage {
 		VoyageNumber : String
+
+		[Refer]
+		CarrierMovement : CarrierMovement* Association
 	}
 
 	Entity Leg {
@@ -169,6 +269,13 @@ DomainModel CargoTrackingSystem {
 		Unloaded : Boolean
 		EstimatedArrivalDate : Date
 		RoutingStatus : String
+	}
+
+	Entity GetCargoInfoResult {
+		[Refer]
+		Delivery : Delivery Association
+		Events : HandlingEvent* Association
+		Voyages : Voyage* Association
 	}
 
 }
