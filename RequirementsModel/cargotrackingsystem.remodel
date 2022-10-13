@@ -164,5 +164,17 @@ DomainModel CargoTrackingSystem {
 	Entity CargoTracker extends User {
 	}
 
+Entity RouteSpecification {
+	}
+
+	Entity Itinerary {
+	}
+
+	Entity Voyage {
+	}
+
+	Entity Leg {
+	}
+
 }
 

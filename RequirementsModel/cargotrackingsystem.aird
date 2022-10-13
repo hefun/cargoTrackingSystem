@@ -4,7 +4,7 @@
     <semanticResources>cargotrackingsystem.remodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_RA_3kDgREe2XScrgPzOCHA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_RCUGMDgREe2XScrgPzOCHA" name="CargoTrackingSystem Conceptual Class Diagram" repPath="#_RCDAcDgREe2XScrgPzOCHA" changeId="79467b25-db1a-46cf-8f22-7787889fad46">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_RCUGMDgREe2XScrgPzOCHA" name="CargoTrackingSystem Conceptual Class Diagram" repPath="#_RCDAcDgREe2XScrgPzOCHA" changeId="74143a94-b734-41df-b380-baa0f3cc78d8">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']/@ownedRepresentations[name='Conceptual%20Class%20Diagram']"/>
         <target xmi:type="rEMODEL:DomainModel" href="cargotrackingsystem.remodel#//@DomainModel"/>
       </ownedRepresentationDescriptors>
@@ -210,6 +210,42 @@
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_9RCqsUVvEe2_W4x7VVHdWQ" fontName="Microsoft YaHei UI" bold="true"/>
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9RCqskVvEe2_W4x7VVHdWQ" x="85" y="226" width="100"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_kpQLVErCEe2AOJx3xaGxMg" type="2003" element="_ko-ecErCEe2AOJx3xaGxMg">
+          <children xmi:type="notation:Node" xmi:id="_kpQLV0rCEe2AOJx3xaGxMg" type="5007"/>
+          <children xmi:type="notation:Node" xmi:id="_kpWR4ErCEe2AOJx3xaGxMg" type="7004">
+            <styles xmi:type="notation:SortingStyle" xmi:id="_kpWR4UrCEe2AOJx3xaGxMg"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_kpWR4krCEe2AOJx3xaGxMg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_kpQLVUrCEe2AOJx3xaGxMg" fontName="Microsoft YaHei UI" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_kpQLVkrCEe2AOJx3xaGxMg" x="225" y="-40" width="133"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_qjHhoErCEe2AOJx3xaGxMg" type="2003" element="_qi--wErCEe2AOJx3xaGxMg">
+          <children xmi:type="notation:Node" xmi:id="_qjHho0rCEe2AOJx3xaGxMg" type="5007"/>
+          <children xmi:type="notation:Node" xmi:id="_qjHhpErCEe2AOJx3xaGxMg" type="7004">
+            <styles xmi:type="notation:SortingStyle" xmi:id="_qjHhpUrCEe2AOJx3xaGxMg"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_qjHhpkrCEe2AOJx3xaGxMg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_qjHhoUrCEe2AOJx3xaGxMg" fontName="Microsoft YaHei UI" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qjHhokrCEe2AOJx3xaGxMg" x="85" y="-40" width="100"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_3KM98ErCEe2AOJx3xaGxMg" type="2003" element="_3KGQQErCEe2AOJx3xaGxMg">
+          <children xmi:type="notation:Node" xmi:id="_3KM980rCEe2AOJx3xaGxMg" type="5007"/>
+          <children xmi:type="notation:Node" xmi:id="_3KM99ErCEe2AOJx3xaGxMg" type="7004">
+            <styles xmi:type="notation:SortingStyle" xmi:id="_3KM99UrCEe2AOJx3xaGxMg"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_3KM99krCEe2AOJx3xaGxMg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_3KM98UrCEe2AOJx3xaGxMg" fontName="Microsoft YaHei UI" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_3KM98krCEe2AOJx3xaGxMg" x="-20" y="-39" width="100"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_6I8nAErCEe2AOJx3xaGxMg" type="2003" element="_6I1SQErCEe2AOJx3xaGxMg">
+          <children xmi:type="notation:Node" xmi:id="_6I8nA0rCEe2AOJx3xaGxMg" type="5007"/>
+          <children xmi:type="notation:Node" xmi:id="_6I8nBErCEe2AOJx3xaGxMg" type="7004">
+            <styles xmi:type="notation:SortingStyle" xmi:id="_6I8nBUrCEe2AOJx3xaGxMg"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_6I8nBkrCEe2AOJx3xaGxMg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_6I8nAUrCEe2AOJx3xaGxMg" fontName="Microsoft YaHei UI" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6I8nAkrCEe2AOJx3xaGxMg" x="215" y="385" width="100"/>
         </children>
         <styles xmi:type="notation:DiagramStyle" xmi:id="_RC1DkjgREe2XScrgPzOCHA"/>
         <edges xmi:type="notation:Edge" xmi:id="_wWe1kEVrEe2_W4x7VVHdWQ" type="4001" element="_wWeOhkVrEe2_W4x7VVHdWQ" source="_cN7zoDgdEe2XScrgPzOCHA" target="_-wCq6DgfEe2XScrgPzOCHA">
@@ -863,6 +899,45 @@
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_EHtAkkVwEe2_W4x7VVHdWQ"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']/@ownedRepresentations[name='Conceptual%20Class%20Diagram']/@defaultLayer/@edgeMappings[name='SuperEntity']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_ko-ecErCEe2AOJx3xaGxMg" name="RouteSpecification" width="10">
+      <target xmi:type="rEMODEL:Entity" href="cargotrackingsystem.remodel#//@DomainModel/@entity.12"/>
+      <semanticElements xmi:type="rEMODEL:Entity" href="cargotrackingsystem.remodel#//@DomainModel/@entity.12"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_ko-ecUrCEe2AOJx3xaGxMg" labelSize="9" showIcon="false" borderSize="1" borderSizeComputationExpression="1" borderColor="39,76,114" backgroundStyle="Liquid" foregroundColor="194,239,255">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']/@ownedRepresentations[name='Conceptual%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Entity']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']/@ownedRepresentations[name='Conceptual%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Entity']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_qi--wErCEe2AOJx3xaGxMg" name="Itinerary" width="10">
+      <target xmi:type="rEMODEL:Entity" href="cargotrackingsystem.remodel#//@DomainModel/@entity.13"/>
+      <semanticElements xmi:type="rEMODEL:Entity" href="cargotrackingsystem.remodel#//@DomainModel/@entity.13"/>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_qi--wUrCEe2AOJx3xaGxMg" labelSize="9" showIcon="false" borderSize="1" borderSizeComputationExpression="1" borderColor="39,76,114" backgroundStyle="Liquid" foregroundColor="194,239,255">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']/@ownedRepresentations[name='Conceptual%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Entity']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']/@ownedRepresentations[name='Conceptual%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Entity']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_3KGQQErCEe2AOJx3xaGxMg" name="Voyage" width="10">
+      <target xmi:type="rEMODEL:Entity" href="cargotrackingsystem.remodel#//@DomainModel/@entity.14"/>
+      <semanticElements xmi:type="rEMODEL:Entity" href="cargotrackingsystem.remodel#//@DomainModel/@entity.14"/>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_3KGQQUrCEe2AOJx3xaGxMg" labelSize="9" showIcon="false" borderSize="1" borderSizeComputationExpression="1" borderColor="39,76,114" backgroundStyle="Liquid" foregroundColor="194,239,255">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']/@ownedRepresentations[name='Conceptual%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Entity']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']/@ownedRepresentations[name='Conceptual%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Entity']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_6I1SQErCEe2AOJx3xaGxMg" name="Leg" width="10">
+      <target xmi:type="rEMODEL:Entity" href="cargotrackingsystem.remodel#//@DomainModel/@entity.15"/>
+      <semanticElements xmi:type="rEMODEL:Entity" href="cargotrackingsystem.remodel#//@DomainModel/@entity.15"/>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_6I1SQUrCEe2AOJx3xaGxMg" labelSize="9" showIcon="false" borderSize="1" borderSizeComputationExpression="1" borderColor="39,76,114" backgroundStyle="Liquid" foregroundColor="194,239,255">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']/@ownedRepresentations[name='Conceptual%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Entity']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']/@ownedRepresentations[name='Conceptual%20Class%20Diagram']/@defaultLayer/@containerMappings[name='Entity']"/>
     </ownedDiagramElements>
     <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/net.mydreamy.requirementmodel.design/description/requirementmodel.odesign#//@ownedViewpoints[name='RequirementModel']/@ownedRepresentations[name='Conceptual%20Class%20Diagram']"/>
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_RCLjUDgREe2XScrgPzOCHA"/>
